@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Outlook Add-in</title>
+  <script src="taskpane.js"></script>
+</head>
+
+<body>
+  <h1>Generate Email</h1>
+  <textarea id="userInput" placeholder="Type your input here..."></textarea>
+  <button onclick="generateEmail()">Generate Email</button>
+  <h1>Translate Email</h1>
+  <textarea id="emailText" placeholder="Type text to translate..."></textarea>
+  <select id="targetLanguage">
+    <option value="fr">French</option>
+    <option value="es">Spanish</option>
+    <option value="de">German</option>
+    <!-- Add more languages as needed -->
+  </select>
+  <button onclick="translateEmail()">Translate Email</button>
+  <div id="output"></div>
+</body>
+
+</html>

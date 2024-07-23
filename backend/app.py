@@ -3,6 +3,10 @@ import os
 import google.generativeai as genai
 import re
 from deep_translator import GoogleTranslator
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
 #Function to generate the mail content
 def to_markdown(text):
     text = text.replace('•', '  *')
@@ -26,7 +30,6 @@ def generate_mail(user_input):
         model_name="gemini-1.5-flash",
         generation_config=generation_config,
     )
-        # Start a chat session
     chat_session = model.start_chat(
         history=[]
     )
@@ -43,3 +46,25 @@ def translate_text(text, target_language='fr'):
     except Exception as e:
         print(f"Error in translation: {e}")
         return text
+    
+@app.route('/generate-email', methods=['POST'])
+def generate_email():
+    data = request.json
+    user_input = data.get('user_input')
+    if not user_input:
+        return jsonify({"error": "No input provided"}), 400
+    email_content = generate_mail(user_input)
+    return jsonify({"email_content": email_content})
+
+@app.route('/translate-text', methods=['POST'])
+def translate():
+    data = request.json
+    text = data.get('text')
+    target_language = data.get('target_language', 'fr')
+    if not text:
+        return jsonify({"error": "No text provided"}), 400
+    translated_text = translate_text(text, target_language)
+    return jsonify({"translated_text": translated_text})
+
+if __name__ == '__main__':
+    app.run(debug=True)
