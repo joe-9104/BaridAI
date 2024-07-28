@@ -20,16 +20,6 @@
       <Set Name="Mailbox" MinVersion="1.1"/>
     </Sets>
   </Requirements>
-  <WebApplicationInfo>
-  <Id>60b1a5f7-5407-4514-8988-1ab98a0387eb</Id>
-  <Resource>api://60b1a5f7-5407-4514-8988-1ab98a0387eb</Resource>
-  <Scopes>
-    <Scope>openid</Scope>
-    <Scope>profile</Scope>
-    <Scope>Mail.Read</Scope>
-    <Scope>Mail.Send</Scope>
-  </Scopes>
-</WebApplicationInfo>
 
   <FormSettings>
     <Form xsi:type="ItemRead">
@@ -92,6 +82,29 @@
               </Group>
             </OfficeTab>
           </ExtensionPoint>
+          <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+          <OfficeTab id="TabDefault">
+            <Group id="msgComposeGroup">
+              <Label resid="groupLabel" />
+              <Control xsi:type="Button" id="msgComposeButton">
+                <Label resid="buttonLabel" />
+                <Supertip>
+                  <Title resid="buttonLabel" />
+                  <Description resid="buttonDescription" />
+                </Supertip>
+                <Icon>
+                  <bt:Image size="16" resid="icon16" />
+                  <bt:Image size="32" resid="icon32" />
+                  <bt:Image size="80" resid="icon80" />
+                </Icon>
+                <Action xsi:type="ShowTaskpane">
+                  <SourceLocation resid="taskpaneUrl" />
+                  <Title resid="taskpaneTitle" />
+                </Action>
+              </Control>
+            </Group>
+          </OfficeTab>
+        </ExtensionPoint>
         </DesktopFormFactor>
       </Host>
     </Hosts>

@@ -21,7 +21,7 @@ def to_markdown(text):
     return text
 
 # Function to generate email content
-def generate_mail(user_input, email_history):
+def generate_mail(user_input):
     load_dotenv()
     genai.configure(api_key=os.getenv("api_key"))
     generation_config = {
@@ -36,7 +36,7 @@ def generate_mail(user_input, email_history):
         generation_config=generation_config,
     )
     chat_session = model.start_chat(
-        history=email_history
+        history=[]
     )
     complementary_input = 'generate only the body of the mail'
     final_input = user_input + ' \n' + complementary_input
