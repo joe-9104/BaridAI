@@ -4,10 +4,14 @@ import google.generativeai as genai
 import re
 from deep_translator import GoogleTranslator
 from flask import Flask, jsonify, request
+from flask_cors import CORS
+from flask_sslify import SSLify
 
 app = Flask(__name__)
+CORS(app)
+SSLify(app)
 
-#Function to generate the mail content
+# Function to convert text to Markdown format
 def to_markdown(text):
     text = text.replace('•', '  *')
     text = re.sub(r'\*\*(.*?)\*\*', r'**\1**', text)
@@ -16,29 +20,29 @@ def to_markdown(text):
     text = re.sub(r'_(.*?)_', r'*\1*', text)
     return text
 
-def generate_mail(user_input):
+# Function to generate email content
+def generate_mail(user_input, email_history):
     load_dotenv()
     genai.configure(api_key=os.getenv("api_key"))
     generation_config = {
-      "temperature": 1,
-      "top_p": 0.95,
-      "top_k": 64,
-      "max_output_tokens": 8192,
-      "response_mime_type": "text/plain",
+        "temperature": 1,
+        "top_p": 0.95,
+        "top_k": 64,
+        "max_output_tokens": 8192,
+        "response_mime_type": "text/plain",
     }
     model = genai.GenerativeModel(
         model_name="gemini-1.5-flash",
         generation_config=generation_config,
     )
     chat_session = model.start_chat(
-        history=[]
+        history=email_history
     )
     complementary_input = 'generate only the body of the mail'
-    final_input = user_input+' \n'+complementary_input
+    final_input = user_input + ' \n' + complementary_input
     return to_markdown(chat_session.send_message(f"{final_input}").text)
-#Function to fetch the history of response mails
 
-#Function to translate text
+# Function to translate text
 def translate_text(text, target_language='fr'):
     try:
         translator = GoogleTranslator(source='auto', target=target_language)
@@ -46,14 +50,15 @@ def translate_text(text, target_language='fr'):
     except Exception as e:
         print(f"Error in translation: {e}")
         return text
-    
+
 @app.route('/generate-email', methods=['POST'])
 def generate_email():
     data = request.json
     user_input = data.get('user_input')
+    email_history = data.get('email_history', [])
     if not user_input:
         return jsonify({"error": "No input provided"}), 400
-    email_content = generate_mail(user_input)
+    email_content = generate_mail(user_input, email_history)
     return jsonify({"email_content": email_content})
 
 @app.route('/translate-text', methods=['POST'])
