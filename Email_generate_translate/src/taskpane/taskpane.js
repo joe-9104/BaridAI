@@ -4,40 +4,45 @@ Office.onReady(info => {
   }
 });
 
-async function getAccessToken() {
-  return new Promise((resolve, reject) => {
-      Office.auth.getAccessTokenAsync({ allowSignInPrompt: true }, result => {
-          if (result.status === "succeeded") {
-              resolve(result.value);
-          } else {
-              reject(result.error);
-          }
-      });
-  });
-}
-
 async function generateEmail() {
   try {
-      const token = await getAccessToken();
-      const emailInput = document.getElementById("emailInput").value;
+    Office.context.mailbox.item.body.getAsync("text", async result => {
+      if (result.status === Office.AsyncResultStatus.Succeeded) {
+        const userInput = result.value;
+        console.log('Original email body:', userInput);
 
-      // Fetch the history of emails based on the subject (mockup for example)
-      const emailHistory = []; // Fetch from your backend or use dummy data
-
-      const response = await fetch('https://your-backend-url/generate-email', {
+        const response = await fetch('http://localhost:5000/generate-email', {
           method: 'POST',
           headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ user_input: emailInput, email_history: emailHistory })
-      });
-      const data = await response.json();
-      document.getElementById("result").innerText = data.email_content;
+          body: JSON.stringify({ user_input: userInput })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to generate email content');
+        }
+
+        const data = await response.json();
+        const generatedContent = data.email_content;
+        console.log('Generated email content:', generatedContent);
+
+        Office.context.mailbox.item.body.setAsync(generatedContent, { coercionType: Office.CoercionType.Html }, function (result) {
+          if (result.status === Office.AsyncResultStatus.Succeeded) {
+            console.log("Email body updated successfully");
+          } else {
+            console.error("Failed to update email body:", result.error);
+          }
+        });
+      } else {
+        console.error("Error getting email body:", result.error);
+      }
+    });
   } catch (error) {
-      console.error("Error generating email:", error);
+    console.error("Error generating email:", error);
   }
 }
+
 
 async function translateEmail() {
   try {

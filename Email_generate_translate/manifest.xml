@@ -79,6 +79,29 @@
               </Group>
             </OfficeTab>
           </ExtensionPoint>
+          <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+          <OfficeTab id="TabDefault">
+            <Group id="msgComposeGroup">
+              <Label resid="groupLabel" />
+              <Control xsi:type="Button" id="msgComposeButton">
+                <Label resid="buttonLabel" />
+                <Supertip>
+                  <Title resid="buttonLabel" />
+                  <Description resid="buttonDescription" />
+                </Supertip>
+                <Icon>
+                  <bt:Image size="16" resid="icon16" />
+                  <bt:Image size="32" resid="icon32" />
+                  <bt:Image size="80" resid="icon80" />
+                </Icon>
+                <Action xsi:type="ShowTaskpane">
+                  <SourceLocation resid="taskpaneUrl" />
+                  <Title resid="taskpaneTitle" />
+                </Action>
+              </Control>
+            </Group>
+          </OfficeTab>
+        </ExtensionPoint>
         </DesktopFormFactor>
       </Host>
     </Hosts>
