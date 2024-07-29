@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="MailApp">
-  <Id>60b1a5f7-5407-4514-8988-1ab98a0387eb</Id>
+  <Id>b1f1b7b7-6b1e-45d4-be8f-5b75a94189c9</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>Contoso</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Email_generate_translate"/>
+  <DisplayName DefaultValue="Email_generate"/>
   <Description DefaultValue="A template to get started."/>
   <IconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-128.png"/>
@@ -20,29 +20,16 @@
       <Set Name="Mailbox" MinVersion="1.1"/>
     </Sets>
   </Requirements>
-  <WebApplicationInfo>
-  <Id>60b1a5f7-5407-4514-8988-1ab98a0387eb</Id>
-  <Resource>api://60b1a5f7-5407-4514-8988-1ab98a0387eb</Resource>
-  <Scopes>
-    <Scope>openid</Scope>
-    <Scope>profile</Scope>
-    <Scope>Mail.Read</Scope>
-    <Scope>Mail.Send</Scope>
-  </Scopes>
-</WebApplicationInfo>
-
   <FormSettings>
-    <Form xsi:type="ItemRead">
+    <Form xsi:type="ItemEdit">
       <DesktopSettings>
         <SourceLocation DefaultValue="https://localhost:3000/taskpane.html"/>
-        <RequestedHeight>250</RequestedHeight>
       </DesktopSettings>
     </Form>
   </FormSettings>
-  <Permissions>ReadWriteItem</Permissions>
   <Permissions>ReadWriteMailbox</Permissions>
   <Rule xsi:type="RuleCollection" Mode="Or">
-    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit"/>
   </Rule>
   <DisableEntityHighlighting>false</DisableEntityHighlighting>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
