@@ -55,10 +55,9 @@ def translate_text(text, target_language='fr'):
 def generate_email():
     data = request.json
     user_input = data.get('user_input')
-    email_history = data.get('email_history', [])
     if not user_input:
         return jsonify({"error": "No input provided"}), 400
-    email_content = generate_mail(user_input, email_history)
+    email_content = generate_mail(user_input)
     return jsonify({"email_content": email_content})
 
 @app.route('/translate-text', methods=['POST'])
