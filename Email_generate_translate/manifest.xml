@@ -4,7 +4,7 @@
   <Version>1.0.0.0</Version>
   <ProviderName>Contoso</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Email_generate"/>
+  <DisplayName DefaultValue="Chatbot name"/>
   <Description DefaultValue="A template to get started."/>
   <IconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-128.png"/>
@@ -43,12 +43,12 @@
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
           <FunctionFile resid="Commands.Url"/>
-          <!-- Message Compose -->
+          <!-- Taskpane directly -->
           <ExtensionPoint xsi:type="MessageComposeCommandSurface">
             <OfficeTab id="TabDefault">
               <Group id="msgComposeCmdGroup">
                 <Label resid="GroupLabel"/>
-                <Control xsi:type="Button" id="msgComposeInsertGist">
+                <Control xsi:type="Button" id="msgComposeShowTaskpane">
                   <Label resid="TaskpaneButton.Label"/>
                   <Supertip>
                     <Title resid="TaskpaneButton.Title"/>
@@ -61,21 +61,6 @@
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
                     <SourceLocation resid="Taskpane.Url"/>
-                  </Action>
-                </Control>
-                <Control xsi:type="Button" id="msgComposeInsertDefaultGist">
-                  <Label resid="FunctionButton.Label"/>
-                  <Supertip>
-                    <Title resid="FunctionButton.Title"/>
-                    <Description resid="FunctionButton.Tooltip"/>
-                  </Supertip>
-                  <Icon>
-                    <bt:Image size="16" resid="Icon.16x16"/>
-                    <bt:Image size="32" resid="Icon.32x32"/>
-                    <bt:Image size="80" resid="Icon.80x80"/>
-                  </Icon>
-                  <Action xsi:type="ExecuteFunction">
-                    <FunctionName>insertDefaultGist</FunctionName>
                   </Action>
                 </Control>
               </Group>
@@ -95,15 +80,12 @@
         <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GroupLabel" DefaultValue="Git the gist"/>
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Insert gist"/>
-        <bt:String id="TaskpaneButton.Title" DefaultValue="Insert gist"/>
-        <bt:String id="FunctionButton.Label" DefaultValue="Insert default gist"/>
-        <bt:String id="FunctionButton.Title" DefaultValue="Insert default gist"/>
+        <bt:String id="GroupLabel" DefaultValue=" Generative AI "/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Chatbot name"/>
+        <bt:String id="TaskpaneButton.Title" DefaultValue="Chatbot name"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Displays a list of your gists and allows you to insert their contents into the current message."/>
-        <bt:String id="FunctionButton.Tooltip" DefaultValue="Inserts the content of the gist you mark as default into the current message."/>
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Opens the generative model"/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

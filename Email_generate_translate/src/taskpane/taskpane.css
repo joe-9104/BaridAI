@@ -1,80 +1,60 @@
-/* 
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
- * See LICENSE in the project root for license information.
- */
+/* Apply a gradient background from white to a lighter purple, not repeating */
+body {
+    background: linear-gradient(to bottom, white 65%, #ddb7ff);
+    font-family: Calibri, sans-serif;
+    color: black;
+    margin: 0;
+    padding: 0;
+    background-attachment: fixed; /* Ensures the gradient doesn't repeat */
+}
 
- html,
- body {
-     width: 100%;
-     height: 100%;
-     margin: 0;
-     padding: 0;
- }
- 
- ul {
-     margin: 0;
-     padding: 0;
- }
- 
- .ms-welcome__header {
+/* Style the header */
+.header {
     padding: 20px;
-    padding-bottom: 30px;
-    padding-top: 100px;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    align-items: center;
- }
+}
 
- .ms-welcome__main {
-    display: -webkit-flex;
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #3f3f3f; /* Dark grey color for better readability */
+    text-align: left; /* Align the header to the left */
+}
+
+/* Style the main content area */
+.main {
     display: flex;
-    -webkit-flex-direction: column;
     flex-direction: column;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-flex: 1 0 0;
-    flex: 1 0 0;
+    align-items: flex-start; /* Align items to the left */
+    padding: 20px;
+}
+
+/* Style the textarea */
+#emailInput {
+    width: 100%;
+    height: 125px;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: Calibri, sans-serif;
+    font-size: 16px; /* Updated font size */
+    color: black;
+}
+
+/* Style the button */
+#button {
+    background-color: #b684df; /* Light purple color */
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    font-weight: bold; /* Make the font bold */
+    border: none;
     padding: 10px 20px;
- }
- 
- .ms-welcome__main > h2 {
-     width: 100%;
-     text-align: center;
- }
- 
- .ms-welcome__features {
-     list-style-type: none;
-     margin-top: 20px;
- }
- 
- .ms-welcome__features.ms-List .ms-ListItem {
-     padding-bottom: 20px;
-     display: -webkit-flex;
-     display: flex;
- }
- 
- .ms-welcome__features.ms-List .ms-ListItem > .ms-Icon {
-     margin-right: 10px;
- }
- 
- .ms-welcome__action.ms-Button--hero {
-     margin-top: 30px;
- }
- 
-.ms-Button.ms-Button--hero .ms-Button-label {
-  color: #0078d7;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-start; /* Align button to the left */
 }
 
-.ms-Button.ms-Button--hero:hover .ms-Button-label,
-.ms-Button.ms-Button--hero:focus .ms-Button-label{
-  color: #005a9e;
-  cursor: pointer;
-}
-
-b {
-    font-weight: bold;
+/* Add hover effect to the button */
+#button:hover {
+    background-color: #6b1780; /* Slightly darker shade of the button color */
 }

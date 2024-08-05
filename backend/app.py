@@ -1,8 +1,7 @@
 from dotenv import load_dotenv
 import os
 import google.generativeai as genai
-import re
-from deep_translator import GoogleTranslator
+import markdown2
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sslify import SSLify
@@ -10,15 +9,6 @@ from flask_sslify import SSLify
 app = Flask(__name__)
 CORS(app)
 SSLify(app)
-
-# Function to convert text to Markdown format
-def to_markdown(text):
-    text = text.replace('•', '  *')
-    text = re.sub(r'\*\*(.*?)\*\*', r'**\1**', text)
-    text = re.sub(r'__(.*?)__', r'**\1**', text)
-    text = re.sub(r'\*(.*?)\*', r'*\1*', text)
-    text = re.sub(r'_(.*?)_', r'*\1*', text)
-    return text
 
 # Function to generate email content
 def generate_mail(user_input):
@@ -31,25 +21,19 @@ def generate_mail(user_input):
         "max_output_tokens": 8192,
         "response_mime_type": "text/plain",
     }
-    model = genai.GenerativeModel(
+    model1 = genai.GenerativeModel(
         model_name="gemini-1.5-flash",
+        system_instruction="You are a mail generator destined to generate only the body of a professional mail. The body must not contain [Your Name] or [Reason] or [Date]. Do not include the signature.",
         generation_config=generation_config,
     )
-    chat_session = model.start_chat(
-        history=[]
+    model2 = genai.GenerativeModel(
+        model_name="gemini-1.5-flash",
+        system_instruction="You are a mail generator destined to generate only the subject of a professional mail.",
+        generation_config=generation_config,
     )
-    complementary_input = 'generate only the body of the mail'
-    final_input = user_input + ' \n' + complementary_input
-    return to_markdown(chat_session.send_message(f"{final_input}").text)
-
-# Function to translate text
-def translate_text(text, target_language='fr'):
-    try:
-        translator = GoogleTranslator(source='auto', target=target_language)
-        return translator.translate(text)
-    except Exception as e:
-        print(f"Error in translation: {e}")
-        return text
+    chat_session1 = model1.start_chat()
+    chat_session2 = model2.start_chat()
+    return markdown2.markdown(chat_session1.send_message(f"{user_input}").text), chat_session2.send_message(f"{user_input}").text
 
 @app.route('/generate-email', methods=['POST'])
 def generate_email():
@@ -57,18 +41,8 @@ def generate_email():
     user_input = data.get('user_input')
     if not user_input:
         return jsonify({"error": "No input provided"}), 400
-    email_content = generate_mail(user_input)
-    return jsonify({"email_content": email_content})
-
-@app.route('/translate-text', methods=['POST'])
-def translate():
-    data = request.json
-    text = data.get('text')
-    target_language = data.get('target_language', 'fr')
-    if not text:
-        return jsonify({"error": "No text provided"}), 400
-    translated_text = translate_text(text, target_language)
-    return jsonify({"translated_text": translated_text})
+    email_content, subject_content = generate_mail(user_input)
+    return jsonify({"email_content": email_content, "subject_content": subject_content})
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -25,8 +25,17 @@ async function generateEmail() {
 
     const data = await response.json();
     const generatedContent = data.email_content;
-    console.log('Generated email content:', generatedContent);
+    const generatedSubject = data.subject_content;
+    console.log('Generated email content:', generatedContent, generatedSubject);
 
+    // Update the email subject with the generated content
+    Office.context.mailbox.item.subject.setAsync(generatedSubject, function (result) {
+      if (result.status === Office.AsyncResultStatus.Succeeded) {
+        console.log("Email subject updated successfully");
+      } else {
+        console.error("Failed to update email subject:", result.error);
+      }
+    });
     // Update the email body with the generated content
     Office.context.mailbox.item.body.setAsync(generatedContent, { coercionType: Office.CoercionType.Html }, function (result) {
       if (result.status === Office.AsyncResultStatus.Succeeded) {
@@ -40,43 +49,4 @@ async function generateEmail() {
   }
 }
 
-
-
-async function translateEmail() {
-  try {
-    Office.context.mailbox.item.body.getAsync("text", async result => {
-      if (result.status === Office.AsyncResultStatus.Succeeded) {
-        const emailBody = result.value;
-        console.log('email body received');
-        console.log(emailBody);
-
-        try {
-          const response = await fetch('http://localhost:5000/translate-text', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ text: emailBody, target_language: 'fr' })
-          });
-
-          if (!response.ok) {
-            throw new Error('Network response was not ok.');
-          }
-
-          const data = await response.json();  // Ensure response is valid JSON
-          console.log('response created');
-          document.getElementById("result").innerText = data.translated_text;
-        } catch (fetchError) {
-          console.error('Fetch error:', fetchError);
-        }
-
-      } else {
-        console.error("Error getting email body:", result.error);
-      }
-    });
-    
-  } catch (error) {
-    console.error("Error translating email:", error);
-  }
-}
 
