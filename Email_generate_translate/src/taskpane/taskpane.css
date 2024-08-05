@@ -40,6 +40,10 @@ body {
     color: black;
 }
 
+#emailInput:focus {
+    outline-color: #6b1780;
+}
+
 /* Style the button */
 #button {
     background-color: #b684df; /* Light purple color */
@@ -57,4 +61,12 @@ body {
 /* Add hover effect to the button */
 #button:hover {
     background-color: #6b1780; /* Slightly darker shade of the button color */
+}
+
+.bottom-right-photo {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 50%; /* Adjust the size as needed */
+    height: auto;
 }
