@@ -23,7 +23,7 @@ def generate_mail(user_input):
     }
     model1 = genai.GenerativeModel(
         model_name="gemini-1.5-flash",
-        system_instruction="You are a mail generator destined to generate only the body of a professional mail. The body must not contain [Your Name] or [Reason] or [Date]. Do not include the signature.",
+        system_instruction="You are a mail generator destined to generate only the body of a professional mail, nothing else. The body does not include neither the signature nor the subject.",
         generation_config=generation_config,
     )
     model2 = genai.GenerativeModel(

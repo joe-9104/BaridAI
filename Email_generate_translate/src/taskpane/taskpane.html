@@ -7,13 +7,18 @@
     <script src="taskpane.js"></script>
 </head>
 <body>
-    <div class="header">
-        <h1>Email Add-in</h1>
+    <div class="flags">
+        <img src="../../assets/french_flag.jpg" alt="French" onclick="setLanguage('fr')"/>
+        <img src="../../assets/uk_flag.svg" alt="English" onclick="setLanguage('en')"/>
     </div>
+    <div class="header">
+        <h1 id="headerText">Email Add-in</h1>
+    </div>
+    <p id="descriptionText">This add-in leverages advanced AI to assist you in composing and generating emails effortlessly. Simply provide the key points, and our AI will craft a polished email draft for you, saving time and enhancing productivity.</p>
     <div class="main">
         <textarea id="emailInput" placeholder="Enter the main points of the email..."></textarea>
         <button id="button" onclick="generateEmail()">Generate Email</button>
     </div>
-    <img src="../../assets/chatbot-svgrepo-com.svg" alt="Photo" class="bottom-right-photo"/>
+    <img src="../../assets/icon-128.png" alt="Photo" class="bottom-right-photo"/>
 </body>
 </html>
