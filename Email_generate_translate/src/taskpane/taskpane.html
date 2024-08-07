@@ -7,17 +7,22 @@
     <script src="taskpane.js"></script>
 </head>
 <body>
-    <div class="flags">
-        <img src="../../assets/french_flag.jpg" alt="French" onclick="setLanguage('fr')"/>
-        <img src="../../assets/uk_flag.svg" alt="English" onclick="setLanguage('en')"/>
+    <div class="head">
+        <div class="flags">
+            <img id="fr_flag" src="../../assets/french_flag.jpg" alt="French" title="Switch to French" onclick="setLanguage('fr')"/>
+            <img id="uk_flag" src="../../assets/uk_flag.svg" alt="English" title="English" onclick="setLanguage('en')"/>
+        </div>
+        <div class="header">
+            <h1 id="headerText">Email Add-in</h1>
+        </div>
     </div>
-    <div class="header">
-        <h1 id="headerText">Email Add-in</h1>
-    </div>
-    <p id="descriptionText">This add-in leverages advanced AI to assist you in composing and generating emails effortlessly. Simply provide the key points, and our AI will craft a polished email draft for you, saving time and enhancing productivity.</p>
+
+    <p id="descriptionText">BaridAI uses advanced AI to help you compose emails effortlessly. Save time and boost productivity.</p>
+    <a id="atext" href="#" onclick="showMoreLess()">How to use BaridAI?</a>
+
     <div class="main">
-        <textarea id="emailInput" placeholder="Enter the main points of the email..."></textarea>
-        <button id="button" onclick="generateEmail()">Generate Email</button>
+        <textarea id="emailInput" placeholder="Enter the main points of the email"></textarea>
+        <button id="buttonClick" onclick="generateEmail()">Generate Email</button>
     </div>
     <img src="../../assets/icon-128.png" alt="Photo" class="bottom-right-photo"/>
 </body>

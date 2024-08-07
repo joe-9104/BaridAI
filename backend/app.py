@@ -28,7 +28,7 @@ def generate_mail(user_input):
     )
     model2 = genai.GenerativeModel(
         model_name="gemini-1.5-flash",
-        system_instruction="You are a mail generator destined to generate only the subject of a professional mail.",
+        system_instruction="You are a mail generator destined to generate only the subject of a professional mail. Do not write 'Subject: ', write only the content of the subject",
         generation_config=generation_config,
     )
     chat_session1 = model1.start_chat()

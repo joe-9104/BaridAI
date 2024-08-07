@@ -4,8 +4,8 @@
   <Version>1.0.0.0</Version>
   <ProviderName>Contoso</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Chatbot name"/>
-  <Description DefaultValue="A template to get started."/>
+  <DisplayName DefaultValue="BaridAI"/>
+  <Description DefaultValue="An AI-powered email assistant."/>
   <IconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-128.png"/>
   <SupportUrl DefaultValue="https://www.contoso.com/help"/>
@@ -81,11 +81,11 @@
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue=" Generative AI "/>
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Chatbot name"/>
-        <bt:String id="TaskpaneButton.Title" DefaultValue="Chatbot name"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="BaridAI"/>
+        <bt:String id="TaskpaneButton.Title" DefaultValue="BaridAI"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Opens the generative model"/>
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="An AI-powered Outlook add-in for effortless email drafting and generation."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

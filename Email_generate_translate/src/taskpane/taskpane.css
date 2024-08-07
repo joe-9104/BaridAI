@@ -3,17 +3,24 @@ body {
     background: linear-gradient(to bottom, white 45%, #955c95);
     font-family: Calibri, sans-serif;
     font-size: large;
-    color: black;
+    color: #3f3f3f;
     margin: 0;
     padding: 0;
     background-attachment: fixed; /* Ensures the gradient doesn't repeat */
 }
 
+/* Style the positionning between flags and header */
+.head {
+    display: flex;
+    flex-direction: column;
+}
+
 /* Style the flags */
 .flags {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: inherit;
+    align-self: flex-end;
+    padding-right: 20px;
+    padding-top: 20px;
 }
 
 .flags img {
@@ -43,8 +50,19 @@ body {
 }
 
 p {
-    padding: 0 20px 20px 20px;
+    padding: 0 20px 0 20px;
+    margin-bottom: 0;
     text-align: justify;
+}
+
+#atext {
+    padding-left: 20px;
+    font-size: medium;
+    color: #6b1780;
+}
+
+#atext:hover {
+    color: #533353;
 }
 
 /* Style the textarea */
@@ -52,10 +70,11 @@ p {
     width: 100%;
     height: 175px;
     margin-bottom: 20px;
+    margin-top: 0;
     padding: 10px;
     box-sizing: border-box;
     font-family: Calibri, sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     color: black;
     border-radius: 5px;
     border-color: #6b1780;
@@ -66,7 +85,7 @@ p {
 }
 
 /* Style the button */
-#button {
+#buttonClick {
     background-color: #955c95;
     color: white;
     font-family: 'Segoe UI', sans-serif;
@@ -79,7 +98,7 @@ p {
     align-self: flex-start; /* Align button to the left */
 }
 
-#button:hover {
+#buttonClick:hover {
     background-color: #533353;
 }
 
