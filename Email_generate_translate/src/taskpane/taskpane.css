@@ -2,7 +2,7 @@
 body {
     background: linear-gradient(to bottom, white 45%, #955c95);
     font-family: Calibri, sans-serif;
-    font-size: large;
+    font-size: medium;
     color: #3f3f3f;
     margin: 0;
     padding: 0;
@@ -24,7 +24,7 @@ body {
 }
 
 .flags img {
-    height: 25px;
+    height: 15px;
     margin-left: 10px;
     cursor: pointer;
 }
@@ -36,17 +36,9 @@ body {
 
 .header h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: larger;
     color: #3f3f3f;
     text-align: left; /* Align the header to the left */
-}
-
-/* Style the main content area */
-.main {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Align items to the left */
-    padding: 20px;
 }
 
 p {
@@ -57,12 +49,28 @@ p {
 
 #atext {
     padding-left: 20px;
-    font-size: medium;
+    font-size: small;
     color: #6b1780;
 }
 
 #atext:hover {
-    color: #533353;
+    color: #cc25cc;
+}
+
+/* Style the main content area */
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    padding: 20px;
+}
+
+/* Style the placeholder message */
+.vidDiv {
+    display: flex;
+    justify-content: center;
+    margin: 25px;
+    width: 100%;
 }
 
 /* Style the textarea */
@@ -74,7 +82,7 @@ p {
     padding: 10px;
     box-sizing: border-box;
     font-family: Calibri, sans-serif;
-    font-size: 18px;
+    font-size: medium;
     color: black;
     border-radius: 5px;
     border-color: #6b1780;

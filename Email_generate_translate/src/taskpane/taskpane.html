@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Email Add-in</title>
+    <title>BaridAI - Email Assistant</title>
     <link rel="stylesheet" href="taskpane.css"/>
+    <link rel="icon" href="../../assets/icon-16.png"/>
     <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
     <script src="taskpane.js"></script>
 </head>
@@ -13,16 +14,20 @@
             <img id="uk_flag" src="../../assets/uk_flag.svg" alt="English" title="English" onclick="setLanguage('en')"/>
         </div>
         <div class="header">
-            <h1 id="headerText">Email Add-in</h1>
+            <h1 id="headerText">BaridAI - Your Email Assistant</h1>
         </div>
     </div>
 
-    <p id="descriptionText">BaridAI uses advanced AI to help you compose emails effortlessly. Save time and boost productivity.</p>
+    <p id="descriptionText">BaridAI uses advanced AI to help you compose emails effortlessly. Save time and boost productivity!</p>
     <a id="atext" href="#" onclick="showMoreLess()">How to use BaridAI?</a>
 
     <div class="main">
         <textarea id="emailInput" placeholder="Enter the main points of the email"></textarea>
         <button id="buttonClick" onclick="generateEmail()">Generate Email</button>
+        <div id="placeholdermsg" class="vidDiv" style="display:none;">
+            <video id="loadingVideo" src="../../assets/dynamic_logo.mp4" autoplay loop muted 
+                   style="height: 60px; border-radius: 15px; border: 5px solid rgba(255,255,255,0.5); align-items: center;"></video>
+        </div>
     </div>
     <img src="../../assets/icon-128.png" alt="Photo" class="bottom-right-photo"/>
 </body>
