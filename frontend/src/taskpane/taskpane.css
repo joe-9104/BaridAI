@@ -1,12 +1,18 @@
 
 body {
-    background: linear-gradient(to bottom, white 45%, #955c95);
+    background: 
+    linear-gradient(to bottom, white 45%, #955c95);
     font-family: Calibri, sans-serif;
-    font-size: medium;
+    font-size: clamp(14px, 4.5vw, 20px); /* Dynamic font size for body */
     color: #3f3f3f;
     margin: 0;
     padding: 0;
     background-attachment: fixed; /* Ensures the gradient doesn't repeat */
+}
+
+.head, .main {
+    position: relative; /* Ensure other elements stack above the background */
+    z-index: 1;
 }
 
 /* Style the positionning between flags and header */
@@ -36,12 +42,13 @@ body {
 
 .header h1 {
     margin: 0;
-    font-size: larger;
+    font-size: clamp(20px, 3vw, 30px); /* Dynamic font size for h1 */
     color: #3f3f3f;
     text-align: left; /* Align the header to the left */
 }
 
 p {
+    font-size: clamp(14px, 4.75vw, 26px); /* Dynamic font size for paragraphs */
     padding: 0 20px 0 20px;
     margin-bottom: 0;
     text-align: justify;
@@ -49,7 +56,7 @@ p {
 
 #atext {
     padding-left: 20px;
-    font-size: small;
+    font-size: clamp(12px, 14px, 16px); /* Dynamic font size for links */
     color: #6b1780;
 }
 
@@ -76,13 +83,13 @@ p {
 /* Style the textarea */
 #emailInput {
     width: 100%;
-    height: 175px;
+    height: 25vh;
     margin-bottom: 20px;
     margin-top: 0;
     padding: 10px;
     box-sizing: border-box;
     font-family: Calibri, sans-serif;
-    font-size: medium;
+    font-size: clamp(12px, 4.5vw, 24px); /* Dynamic font size for button */
     color: black;
     border-radius: 5px;
     border-color: #6b1780;
@@ -108,6 +115,10 @@ p {
 
 #buttonClick:hover {
     background-color: #533353;
+}
+
+#buttonClick:focus {
+    border-color: #533353;
 }
 
 .bottom-right-photo {

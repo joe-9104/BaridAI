@@ -79,6 +79,7 @@ async function generateEmail() {
 
     placeholderMessage = document.getElementById('placeholdermsg');
     placeholderMessage.style.display = 'flex';
+    placeholderMessage.scrollIntoView({ behavior : 'smooth'});
 
     // Get the current subject and check if it starts with 'RE: '
     const currentSubject = await new Promise((resolve, reject) => {
