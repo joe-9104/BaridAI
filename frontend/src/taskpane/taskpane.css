@@ -54,6 +54,23 @@ p {
     text-align: justify;
 }
 
+#descriptionText {
+    max-height: 4.5em;
+    transition: max-height 0.75s ease, opacity 0.75s ease; /* Smooth transition for height and opacity */
+    opacity: 1;
+}
+
+#descriptionText.expanded {
+    max-height: 15em;
+    opacity: 1;
+}
+
+#descriptionText.collapsed {
+    max-height: 4.5em;
+    opacity: 1;
+}
+
+
 #atext {
     padding-left: 20px;
     font-size: clamp(12px, 14px, 16px); /* Dynamic font size for links */
@@ -118,7 +135,13 @@ p {
 }
 
 #buttonClick:focus {
-    border-color: #533353;
+    border: 3px solid #724772;
+}
+
+#buttonClick:disabled {
+    background-color: #d7a8d7;
+    cursor: not-allowed;
+    border: 1px solid #533353;
 }
 
 .bottom-right-photo {

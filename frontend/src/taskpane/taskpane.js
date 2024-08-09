@@ -21,15 +21,23 @@ function showMoreLess(){
   if (aText.innerHTML == longATextEn){
     aText.innerHTML = shortAtextEn;
     descriptionText.textContent = longDescriptionTextEn;
+    descriptionText.classList.remove('collapsed');
+    descriptionText.classList.add('expanded');
   }else if (aText.innerHTML == shortAtextEn){
     aText.innerHTML = longATextEn;
     descriptionText.textContent = shortDescriptionTextEn;
+    descriptionText.classList.remove('expanded');
+    descriptionText.classList.add('collapsed');
   }else if (aText.innerHTML == shortATextFr){
     aText.innerHTML = longATextFr;
     descriptionText.textContent = shortDescriptionTextFr;
+    descriptionText.classList.remove('expanded');
+    descriptionText.classList.add('collapsed');
   }else if (aText.innerHTML == longATextFr){
     aText.innerHTML = shortATextFr;
     descriptionText.textContent = longDescriptionTextFr;
+    descriptionText.classList.remove('collapsed');
+    descriptionText.classList.add('expanded');
   }
 }
 
@@ -66,6 +74,19 @@ function setLanguage(lang){
   }
 }
 
+// Function to enable or disable the button based on textarea content
+function updateButtonState() {
+  const textarea = document.getElementById('emailInput');
+  const button = document.getElementById('buttonClick');
+  button.disabled = textarea.value.trim() === '';
+}
+
+// Event listener to <textarea> to update button state
+document.getElementById('emailInput').addEventListener('input', updateButtonState);
+
+// Initialize button state based on the current textarea content
+updateButtonState();
+
 //Main function: generating the email content
 Office.onReady(info => {
   if (info.host === Office.HostType.Outlook) {
@@ -77,9 +98,14 @@ Office.onReady(info => {
 async function generateEmail() {
   try {
 
+    // Show the placeholder video
     placeholderMessage = document.getElementById('placeholdermsg');
     placeholderMessage.style.display = 'flex';
     placeholderMessage.scrollIntoView({ behavior : 'smooth'});
+
+    // Disable the 'generate email' button
+    const buttonClick = document.getElementById('buttonClick');
+    buttonClick.disabled = true;
 
     // Get the current subject and check if it starts with 'RE: '
     const currentSubject = await new Promise((resolve, reject) => {
@@ -201,7 +227,11 @@ async function generateEmail() {
       });
     });
   } finally {
+    // Hide the placeholder video
     placeholderMessage.style.display = 'none';
+
+    // Enable or disable the button (referring to the content of the <textarea>)
+    updateButtonState();
   }
 }
 

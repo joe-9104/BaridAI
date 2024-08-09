@@ -12,28 +12,32 @@ SSLify(app)
 
 # Function to generate email content
 def generate_mail(user_input):
-    load_dotenv()
-    genai.configure(api_key=os.getenv("api_key"))
-    generation_config = {
-        "temperature": 1,
-        "top_p": 0.95,
-        "top_k": 64,
-        "max_output_tokens": 8192,
-        "response_mime_type": "text/plain",
-    }
-    model1 = genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        system_instruction="You are a mail generator destined to generate only the body of a professional mail, nothing else. The body does not include neither the signature nor the subject.",
-        generation_config=generation_config,
-    )
-    model2 = genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        system_instruction="You are a mail generator destined to generate only the subject of a professional mail. Do not write 'Subject: ', write only the content of the subject",
-        generation_config=generation_config,
-    )
-    chat_session1 = model1.start_chat()
-    chat_session2 = model2.start_chat()
-    return markdown2.markdown(chat_session1.send_message(f"{user_input}").text), chat_session2.send_message(f"{user_input}").text
+    try:
+        load_dotenv()
+        genai.configure(api_key=os.getenv("api_key"))
+        generation_config = {
+            "temperature": 1,
+            "top_p": 0.95,
+            "top_k": 64,
+            "max_output_tokens": 8192,
+            "response_mime_type": "text/plain",
+        }
+        model1 = genai.GenerativeModel(
+            model_name="gemini-1.5-flash",
+            system_instruction="You are a mail generator destined to generate only the body of a professional mail, nothing else. The body does not include neither the signature nor the subject.",
+            generation_config=generation_config,
+        )
+        model2 = genai.GenerativeModel(
+            model_name="gemini-1.5-flash",
+            system_instruction="You are a mail generator destined to generate only the subject of a professional mail. Do not write 'Subject: ', write only the content of the subject",
+            generation_config=generation_config,
+        )
+        chat_session1 = model1.start_chat()
+        chat_session2 = model2.start_chat()
+        return markdown2.markdown(chat_session1.send_message(f"{user_input}").text), chat_session2.send_message(f"{user_input}").text
+    except Exception as e:
+        return f"BaridAI faced problems: {e}", "Could not generate email"
+
 
 @app.route('/generate-email', methods=['POST'])
 def generate_email():
