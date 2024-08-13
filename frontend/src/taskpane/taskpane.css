@@ -35,6 +35,11 @@ body {
     cursor: pointer;
 }
 
+.disabledFlags {    /* Define flags behaviour while disabled */
+    pointer-events: none; /* Disables clicking */
+    opacity: 0.5; /* Makes the element look disabled */
+}
+
 /* Style the header */
 .header {
     padding: 20px 20px 0 20px;

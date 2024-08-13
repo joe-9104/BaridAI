@@ -96,6 +96,9 @@ Office.onReady(info => {
 });
 
 async function generateEmail() {
+  // Define flags
+  const frFlag = document.getElementById("fr_flag");
+  const ukFlag = document.getElementById("uk_flag");
   try {
 
     // Show the placeholder video
@@ -106,6 +109,10 @@ async function generateEmail() {
     // Disable the 'generate email' button
     const buttonClick = document.getElementById('buttonClick');
     buttonClick.disabled = true;
+
+    // Disable flags
+    frFlag.classList.add('disabledFlags');
+    ukFlag.classList.add('disabledFlags');
 
     // Get the current subject and check if it starts with 'RE: '
     const currentSubject = await new Promise((resolve, reject) => {
@@ -232,6 +239,10 @@ async function generateEmail() {
 
     // Enable or disable the button (referring to the content of the <textarea>)
     updateButtonState();
+
+    // Unable flags
+    frFlag.classList.remove('disabledFlags');
+    ukFlag.classList.remove('disabledFlags');
   }
 }
 
