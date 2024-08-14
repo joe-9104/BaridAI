@@ -2,17 +2,18 @@
 let placeholderMessage = document.getElementById('placeholdermsg');
 
 // Define an error message
-let errorMessage = "<span style= 'color: red;'>Sorry :(, an error occured. Check the console for more info.</span>"
+let errorMessage = "<span style= 'color: red;'>Sorry :(, an error occured. Check the console for more info.</span>";
 
 // Define long and short strings
-let longDescriptionTextFr = "BaridAI exploite une IA avancée pour vous aider à rédiger et générer des e-mails sans effort. Fournissez simplement les points clés dans la langue de votre choix, et BaridAI rédigera pour vous un brouillon d'e-mail soigné, ce qui vous fera gagner du temps et améliorera la productivité."
-let longDescriptionTextEn = "BaridAI leverages advanced AI to assist you in composing and generating emails effortlessly. Simply provide the key points in any language, and BaridAI will craft a polished email draft for you, saving time and enhancing productivity."
-let shortDescriptionTextFr = "BaridAI utilise une IA avancée pour vous aider à rédiger des e-mails sans effort. Gagnez du temps et augmentez la productivité!"
-let shortDescriptionTextEn = "BaridAI uses advanced AI to help you compose emails effortlessly. Save time and boost productivity!"
-let longATextFr = "Comment utiliser BaridAI?"
-let longATextEn = "How to use BaridAI?"
-let shortATextFr = "Voir moins"
-let shortAtextEn = "Show less"
+let longDescriptionTextFr = "BaridAI exploite une IA avancée pour vous aider à rédiger et générer des e-mails sans effort. Fournissez simplement les points clés dans la langue de votre choix, et BaridAI rédigera pour vous un brouillon d'e-mail soigné, ce qui vous fera gagner du temps et améliorera la productivité.";
+let longDescriptionTextEn = "BaridAI leverages advanced AI to assist you in composing and generating emails effortlessly. Simply provide the key points in any language, and BaridAI will craft a polished email draft for you, saving time and enhancing productivity.";
+let shortDescriptionTextFr = "BaridAI utilise une IA avancée pour vous aider à rédiger des e-mails sans effort. Gagnez du temps et augmentez la productivité!";
+let shortDescriptionTextEn = "BaridAI uses advanced AI to help you compose emails effortlessly. Save time and boost productivity!";
+let longATextFr = "Comment utiliser BaridAI?";
+let longATextEn = "How to use BaridAI?";
+let shortATextFr = "Voir moins";
+let shortAtextEn = "Show less";
+let buttonTitle = "Write the main points of the email to start generating";
 
 //Function to show more & less info
 function showMoreLess(){
@@ -61,6 +62,7 @@ function setLanguage(lang){
     buttonClick.innerText = "Générer l'email"
     errorMessage = "<span style= 'color: red;'>Désolé :(, une erreur s'est produite. Consultez la console pour plus d'informations.";
     placeholderMessage = "Travail en cours...";
+    buttonTitle = "Entrez les principaux points de l'email pour générer";
   } else if (lang === 'en') {
     fr_flag.title = "Switch to french";
     uk_flag.title = "English";
@@ -71,7 +73,10 @@ function setLanguage(lang){
     buttonClick.innerText = "Generate email"
     errorMessage = "<span style= 'color: red;'>Sorry :(, an error occured. Check the console for more info.</span>";
     placeholderMessage = "Working on it...";
+    buttonTitle = "Write the main points of the email to start generating";
   }
+  // Update button state after language change
+  updateButtonState();
 }
 
 // Function to enable or disable the button based on textarea content
@@ -79,10 +84,19 @@ function updateButtonState() {
   const textarea = document.getElementById('emailInput');
   const button = document.getElementById('buttonClick');
   button.disabled = textarea.value.trim() === '';
+  if(button.disabled){
+    button.title = buttonTitle;
+  }else{
+    button.title = '';
+  }
 }
 
 // Event listener to <textarea> to update button state
 document.getElementById('emailInput').addEventListener('input', updateButtonState);
+
+// Event listener for language change to update button state
+document.getElementById('fr_flag').addEventListener('click', () => setLanguage('fr'));
+document.getElementById('uk_flag').addEventListener('click', () => setLanguage('en'));
 
 // Initialize button state based on the current textarea content
 updateButtonState();
