@@ -105,7 +105,7 @@ updateButtonState();
 Office.onReady(info => {
   if (info.host === Office.HostType.Outlook) {
       // Office is ready
-      console.log("BaridAI is ready...")
+      console.log("BaridAI - Mail Generator is ready...")
   }
 });
 
@@ -177,6 +177,42 @@ async function generateEmail() {
         body: JSON.stringify({ user_input: totalInput })
       });
 
+      if(response.status === 422){ // 'Unprocessable entity' HTTP error status
+        const data = await response.json();
+        console.error("Backend error: ", data.email_content);
+
+        // Update the mail body with the error message
+        await new Promise((resolve, reject) => {
+          Office.context.mailbox.item.body.prependAsync('<p style="color : red";>BaridAI faced problems, please try again later or check the console for more info.</p>',
+            {coercionType: Office.CoercionType.Html},
+            function(result){
+              if(result.status === Office.AsyncResultStatus.Succeeded){
+                resolve();
+              }else{
+                console.error("Failed to update email body with error message: ", result.error);
+                reject(result.error);
+              }
+            }
+          );
+        });
+
+        // Update the subject with the error message
+        await new Promise((resolve, reject) => {
+          Office.context.mailbox.item.subject.setAsync(data.subject_content,
+            function(result){
+              if(result.status === Office.AsyncResultStatus.Succeeded){
+                resolve();
+              }else{
+                console.error("Failed to update email subject with error message: ", result.error);
+                reject(result.error);
+              }
+            }
+          );
+        });
+
+        return; // Prevent further error handling (if(!response.ok) statement)
+      }
+
       if (!response.ok) {
         throw new Error('Failed to generate email content');
       }
@@ -190,6 +226,42 @@ async function generateEmail() {
         },
         body: JSON.stringify({ user_input: userInput })
       });
+
+      if(response.status === 422){ // 'Unprocessable entity' HTTP error status
+        const data = await response.json();
+        console.error("Backend error: ", data.email_content);
+
+        // Update the mail body with the error message
+        await new Promise((resolve, reject) => {
+          Office.context.mailbox.item.body.prependAsync('<p style="color : red";>BaridAI faced problems, please try again later or check the console for more info.</p>',
+            {coercionType: Office.CoercionType.Html},
+            function(result){
+              if(result.status === Office.AsyncResultStatus.Succeeded){
+                resolve();
+              }else{
+                console.error("Failed to update email body with error message: ", result.error);
+                reject(result.error);
+              }
+            }
+          );
+        });
+
+        // Update the subject with the error message
+        await new Promise((resolve, reject) => {
+          Office.context.mailbox.item.subject.setAsync(data.subject_content,
+            function(result){
+              if(result.status === Office.AsyncResultStatus.Succeeded){
+                resolve();
+              }else{
+                console.error("Failed to update email subject with error message: ", result.error);
+                reject(result.error);
+              }
+            }
+          );
+        });
+
+        return; // Prevent further error handling (if(!response.ok) statement)
+      }
 
       if (!response.ok) {
         throw new Error('Failed to generate email content');

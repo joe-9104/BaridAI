@@ -29,24 +29,30 @@ def generate_mail(user_input):
         )
         model2 = genai.GenerativeModel(
             model_name="gemini-1.5-flash",
-            system_instruction="You are a mail generator destined to generate only the subject of a professional mail. Do not write 'Subject: ', write only the content of the subject",
+            system_instruction="You are a mail generator destined to generate only the subject of a professional mail. Do not write 'Subject: ', write only the content of the subject. If you can't, write 'Cannot generate email'.",
             generation_config=generation_config,
         )
         chat_session1 = model1.start_chat()
         chat_session2 = model2.start_chat()
         return markdown2.markdown(chat_session1.send_message(f"{user_input}").text), chat_session2.send_message(f"{user_input}").text
     except Exception as e:
-        return f"BaridAI faced problems: {e}", "Could not generate email"
+        raise RuntimeError(e)
 
 
 @app.route('/generate-email', methods=['POST'])
 def generate_email():
-    data = request.json
-    user_input = data.get('user_input')
-    if not user_input:
-        return jsonify({"error": "No input provided"}), 400
-    email_content, subject_content = generate_mail(user_input)
-    return jsonify({"email_content": email_content, "subject_content": subject_content})
+    try:
+        data = request.json
+        user_input = data.get('user_input')
+        if not user_input:
+            return jsonify({"error": "No input provided"}), 400
+        email_content, subject_content = generate_mail(user_input)
+        return jsonify({"email_content": email_content, "subject_content": subject_content})
+    except RuntimeError as e:
+        return jsonify({
+            'email_content': 'BaridAI faced problems: {}'.format(e),
+            'subject_content': 'Could not generate email'
+        }), 422 # 'Unprocessable entity' HTTP error status (server understands content type of the request body but is invalid)
 
 if __name__ == '__main__':
     app.run(debug=True)
