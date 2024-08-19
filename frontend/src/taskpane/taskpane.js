@@ -4,77 +4,189 @@ let placeholderMessage = document.getElementById('placeholdermsg');
 // Define an error message
 let errorMessage = "<span style= 'color: red;'>Sorry :(, an error occured. Check the console for more info.</span>";
 
-// Define long and short strings
-let longDescriptionTextFr = "BaridAI exploite une IA avancée pour vous aider à rédiger et générer des e-mails sans effort. Fournissez simplement les points clés dans la langue de votre choix, et BaridAI rédigera pour vous un brouillon d'e-mail soigné, ce qui vous fera gagner du temps et améliorera la productivité.";
-let longDescriptionTextEn = "BaridAI leverages advanced AI to assist you in composing and generating emails effortlessly. Simply provide the key points in any language, and BaridAI will craft a polished email draft for you, saving time and enhancing productivity.";
-let shortDescriptionTextFr = "BaridAI utilise une IA avancée pour vous aider à rédiger des e-mails sans effort. Gagnez du temps et augmentez la productivité!";
-let shortDescriptionTextEn = "BaridAI uses advanced AI to help you compose emails effortlessly. Save time and boost productivity!";
-let longATextFr = "Comment utiliser BaridAI?";
-let longATextEn = "How to use BaridAI?";
-let shortATextFr = "Voir moins";
-let shortAtextEn = "Show less";
-let buttonTitle = "Write the main points of the email to start generating";
+// Language-specific strings
+const texts = {
+  en: {
+    fr_flag_title: "Switch to french",
+    uk_flag_title: "English",
+    ar_flag_title: "Switch to arabic",
+    es_flag_title: "Switch to spanish",
+    pr_flag_title: "Switch to protuguese",
+    de_flag_title: "Switch to german",
+    headerText: "BaridAI - Your Email Assistant",
+    longDescription: "BaridAI leverages advanced AI to assist you in composing and generating emails effortlessly. Simply provide the key points in any language, and BaridAI will craft a polished email draft for you, saving time and enhancing productivity.",
+    shortDescription: "BaridAI uses advanced AI to help you compose emails effortlessly. Save time and boost productivity!",
+    longAText: "How to use BaridAI?",
+    shortAText: "Show less",
+    buttonTitle: "Write the main points of the email to start generating",
+    emailPlaceholder: "Enter the main points of the email in your preferred language",
+    buttonClickText: "Generate email",
+    errorMessage: "<span style='color: red;'>Sorry :(, an error occurred. Check the console for more info.</span>",
+    placeholderMessage: "Working on it..."
+  },
+  fr: {
+    fr_flag_title: "Français",
+    uk_flag_title: "Basculer vers l'anglais",
+    ar_flag_title: "Basculer vers l'arabe",
+    es_flag_title: "Basculer vers l'espagnol",
+    pr_flag_title: "Basculer vers le portugais",
+    de_flag_title: "Basculer vers l'allemand",
+    headerText: "BaridAI - Votre Assistant de Messagerie",
+    longDescription: "BaridAI exploite une IA avancée pour vous aider à rédiger et générer des e-mails sans effort. Fournissez simplement les points clés dans la langue de votre choix, et BaridAI rédigera pour vous un brouillon d'e-mail soigné, ce qui vous fera gagner du temps et améliorera la productivité.",
+    shortDescription: "BaridAI utilise une IA avancée pour vous aider à rédiger des e-mails sans effort. Gagnez du temps et augmentez la productivité!",
+    longAText: "Comment utiliser BaridAI?",
+    shortAText: "Voir moins",
+    buttonTitle: "Entrez les principaux points de l'email pour générer",
+    emailPlaceholder: "Entrez les principaux points de l'email dans votre langue préférée",
+    buttonClickText: "Générer l'email",
+    errorMessage: "<span style='color: red;'>Désolé :(, une erreur s'est produite. Consultez la console pour plus d'informations.</span>",
+    placeholderMessage: "Travail en cours..."
+  },
+  ar: {
+    fr_flag_title: "التبديل إلى الفرنسية",
+    uk_flag_title: "التبديل إلى الإنجليزية",
+    ar_flag_title: "العربية",
+    es_flag_title: "التبديل إلى الإسبانية",
+    pr_flag_title: "التبديل إلى البرتغالية",
+    de_flag_title: "التبديل إلى الألمانية",
+    headerText: "BaridAI - مساعد البريد الإلكتروني الخاص بك",
+    longDescription: "BaridAI يستفيد من الذكاء الاصطناعي المتقدم لمساعدتك في تأليف وتوليد رسائل البريد الإلكتروني بكل سهولة. ما عليك سوى تقديم النقاط الرئيسية بأي لغة، وسيتولى BaridAI صياغة مسودة بريد إلكتروني أنيقة، مما يوفر الوقت ويعزز الإنتاجية.",
+    shortDescription: "BaridAI يستخدم الذكاء الاصطناعي المتقدم لمساعدتك في تأليف الرسائل الإلكترونية بسهولة. وفر الوقت وزيِّد الإنتاجية!",
+    longAText: "كيفية استخدام BaridAI؟",
+    shortAText: "عرض أقل",
+    buttonTitle: "اكتب النقاط الرئيسية للبريد الإلكتروني لبدء الصياغة",
+    emailPlaceholder: "اكتب النقاط الرئيسية للبريد الإلكتروني بلغتك المفضلة",
+    buttonClickText: "صياغة البريد الإلكتروني",
+    errorMessage: "<span style='color: red;'>عذرًا :(، حدث خطأ. تحقق من وحدة التحكم لمزيد من المعلومات.</span>",
+    placeholderMessage: "جارٍ العمل...",
+    rtl: true
+  },
+  es: {
+    fr_flag_title: "Cambiar a francés",
+    uk_flag_title: "Cambiar a inglés",
+    ar_flag_title: "Cambiar a árabe",
+    es_flag_title: "Español",
+    pr_flag_title: "Cambiar a portugués",
+    de_flag_title: "Cambiar a alemán",
+    headerText: "BaridAI - Su asistente de correo electrónico",
+    longDescription: "BaridAI utiliza inteligencia artificial avanzada para ayudarte a redactar y generar correos electrónicos sin esfuerzo. Simplemente proporciona los puntos clave en cualquier idioma, y BaridAI creará un borrador pulido del correo electrónico para ti, ahorrando tiempo y mejorando la productividad.",
+    shortDescription: "BaridAI usa IA avanzada para ayudarte a redactar correos electrónicos sin esfuerzo. ¡Ahorra tiempo y aumenta la productividad!",
+    longAText: "¿Cómo usar BaridAI?",
+    shortAText: "Mostrar menos",
+    buttonTitle: "Escribe los puntos principales del correo electrónico para comenzar a generar",
+    emailPlaceholder: "Escriba los puntos principales del correo electrónico en su idioma preferido.",
+    buttonClickText: "Generar correo electrónico",
+    errorMessage: "<span style='color: red;'>Lo siento :(, ocurrió un error. Consulta la consola para más información.</span>",
+    placeholderMessage: "Trabajando en ello..."
+  },
+  pt: {
+    fr_flag_title: "Mudar para francês",
+    uk_flag_title: "Mudar para inglês",
+    ar_flag_title: "Mudar para árabe",
+    es_flag_title: "Mudar para espanhol",
+    pr_flag_title: "Português",
+    de_flag_title: "Mudar para alemão",
+    headerText: "BaridAI - Seu Assistente de Email",
+    longDescription: "BaridAI usa inteligência artificial avançada para ajudá-lo a redigir e gerar e-mails sem esforço. Basta fornecer os pontos principais em qualquer idioma, e o BaridAI criará um rascunho polido do e-mail para você, economizando tempo e aumentando a produtividade.",
+    shortDescription: "BaridAI usa inteligência artificial avançada para ajudá-lo a redigir e-mails com facilidade. Economize tempo e aumente a produtividade!",
+    longAText: "Como usar o BaridAI?",
+    shortAText: "Mostrar menos",
+    buttonTitle: "Escreva os principais pontos do e-mail para começar a gerar",
+    emailPlaceholder: "Introduza os pontos principais do e-mail no idioma da sua preferência",
+    buttonClickText: "Gerar e-mail",
+    errorMessage: "<span style='color: red;'>Desculpe :(, ocorreu um erro. Verifique o console para mais informações.</span>",
+    placeholderMessage: "Trabalhando nisso..."
+  },
+  de: {
+    fr_flag_title: "Wechseln Sie zu Französisch",
+    uk_flag_title: "Zu Englisch wechseln",
+    ar_flag_title: "Zu Arabisch wechseln",
+    es_flag_title: "Zu Spanisch wechseln",
+    pr_flag_title: "Zu Portugiesisch wechseln",
+    de_flag_title: "Deutsch",
+    headerText: "BaridAI - Ihr E-Mail-Assistent",
+    longDescription: "BaridAI nutzt fortschrittliche KI, um Ihnen beim Verfassen und Erstellen von E-Mails mühelos zu helfen. Geben Sie einfach die Hauptpunkte in einer beliebigen Sprache ein, und BaridAI erstellt für Sie einen ausgefeilten E-Mail-Entwurf, spart Zeit und steigert die Produktivität.",
+    shortDescription: "BaridAI verwendet fortschrittliche KI, um Ihnen beim Verfassen von E-Mails mühelos zu helfen. Sparen Sie Zeit und steigern Sie die Produktivität!",
+    longAText: "Wie benutzt man BaridAI?",
+    shortAText: "Weniger anzeigen",
+    buttonTitle: "Geben Sie die Hauptpunkte der E-Mail ein, um mit der Generierung zu beginnen",
+    emailPlaceholder: "Geben Sie die Hauptpunkte der E-Mail in Ihrer bevorzugten Sprache ein",
+    buttonClickText: "E-Mail generieren",
+    errorMessage: "<span style='color: red;'>Entschuldigung :(, ein Fehler ist aufgetreten. Überprüfen Sie die Konsole für weitere Informationen.</span>",
+    placeholderMessage: "Arbeiten daran..."
+  }
+};
 
-//Function to show more & less info
+// Default language
+let currentLanguage = 'en';
+
+// Function to show more & less info
 function showMoreLess(){
   const descriptionText = document.getElementById('descriptionText');
   const aText = document.getElementById('atext');
-  if (aText.innerHTML == longATextEn){
-    aText.innerHTML = shortAtextEn;
-    descriptionText.textContent = longDescriptionTextEn;
+
+  if (aText.innerHTML === texts[currentLanguage].longAText) {
+    aText.innerHTML = texts[currentLanguage].shortAText;
+    descriptionText.textContent = texts[currentLanguage].longDescription;
     descriptionText.classList.remove('collapsed');
     descriptionText.classList.add('expanded');
-  }else if (aText.innerHTML == shortAtextEn){
-    aText.innerHTML = longATextEn;
-    descriptionText.textContent = shortDescriptionTextEn;
+  } else if (aText.innerHTML === texts[currentLanguage].shortAText) {
+    aText.innerHTML = texts[currentLanguage].longAText;
+    descriptionText.textContent = texts[currentLanguage].shortDescription;
     descriptionText.classList.remove('expanded');
     descriptionText.classList.add('collapsed');
-  }else if (aText.innerHTML == shortATextFr){
-    aText.innerHTML = longATextFr;
-    descriptionText.textContent = shortDescriptionTextFr;
-    descriptionText.classList.remove('expanded');
-    descriptionText.classList.add('collapsed');
-  }else if (aText.innerHTML == longATextFr){
-    aText.innerHTML = shortATextFr;
-    descriptionText.textContent = longDescriptionTextFr;
-    descriptionText.classList.remove('collapsed');
-    descriptionText.classList.add('expanded');
   }
 }
 
-//Function to set the language of the add-in
-function setLanguage(lang){
+
+// Function to set the language of the add-in
+function setLanguage(lang) {
+  if (!texts[lang]) {
+    console.error("Language not supported");
+    return;
+  }
+
+  currentLanguage = lang;
+
   const fr_flag = document.getElementById('fr_flag');
   const uk_flag = document.getElementById('uk_flag');
+  const ar_flag = document.getElementById('ar_flag');
+  const es_flag = document.getElementById('es_flag');
+  const pr_flag = document.getElementById('pr_flag');
+  const de_flag = document.getElementById('de_flag');
   const headerText = document.getElementById('headerText');
   const descriptionText = document.getElementById('descriptionText');
   const aText = document.getElementById('atext');
   const emailInput = document.getElementById('emailInput');
   const buttonClick = document.getElementById('buttonClick');
 
-  if (lang == 'fr'){
-    fr_flag.title = "Français";
-    uk_flag.title = "Basculer vers l'anglais";
-    headerText.textContent = "BaridAI - Votre Assistant de Messagerie";
-    descriptionText.textContent = shortDescriptionTextFr;
-    aText.innerHTML = longATextFr;
-    emailInput.placeholder = "Entrez les principaux points de l'email";
-    buttonClick.innerText = "Générer l'email"
-    errorMessage = "<span style= 'color: red;'>Désolé :(, une erreur s'est produite. Consultez la console pour plus d'informations.";
-    placeholderMessage = "Travail en cours...";
-    buttonTitle = "Entrez les principaux points de l'email pour générer";
-  } else if (lang === 'en') {
-    fr_flag.title = "Switch to french";
-    uk_flag.title = "English";
-    headerText.textContent = "BaridAI - Your Email Assistant";
-    descriptionText.textContent = shortDescriptionTextEn;
-    aText.innerHTML = longATextEn;
-    emailInput.placeholder = "Enter the main points of the email";
-    buttonClick.innerText = "Generate email"
-    errorMessage = "<span style= 'color: red;'>Sorry :(, an error occured. Check the console for more info.</span>";
-    placeholderMessage = "Working on it...";
-    buttonTitle = "Write the main points of the email to start generating";
+  const langData = texts[lang];
+  // Update flag titles
+  fr_flag.title = langData.fr_flag_title;
+  uk_flag.title = langData.uk_flag_title;
+  ar_flag.title = langData.ar_flag_title;
+  es_flag.title = langData.es_flag_title;
+  pr_flag.title = langData.pr_flag_title;
+  de_flag.title = langData.de_flag_title;
+  
+  // Update UI elements based on selected language
+  headerText.textContent = langData.headerText;
+  
+  descriptionText.textContent = langData.shortDescription;
+  aText.innerHTML = langData.longAText;
+  emailInput.placeholder = langData.emailPlaceholder;
+  buttonClick.innerText = langData.buttonClickText;
+  
+  errorMessage = langData.errorMessage;
+  placeholderMessage = langData.placeholderMessage;
+  buttonTitle = langData.buttonTitle;
+
+  if (langData.rtl) {
+    document.body.style.direction = 'rtl';
+  } else {
+    document.body.style.direction = 'ltr';
   }
+
   // Update button state after language change
   updateButtonState();
 }
@@ -85,7 +197,7 @@ function updateButtonState() {
   const button = document.getElementById('buttonClick');
   button.disabled = textarea.value.trim() === '';
   if(button.disabled){
-    button.title = buttonTitle;
+    button.title = texts[currentLanguage].buttonTitle;
   }else{
     button.title = '';
   }
@@ -93,10 +205,6 @@ function updateButtonState() {
 
 // Event listener to <textarea> to update button state
 document.getElementById('emailInput').addEventListener('input', updateButtonState);
-
-// Event listener for language change to update button state
-document.getElementById('fr_flag').addEventListener('click', () => setLanguage('fr'));
-document.getElementById('uk_flag').addEventListener('click', () => setLanguage('en'));
 
 // Initialize button state based on the current textarea content
 updateButtonState();
@@ -111,8 +219,7 @@ Office.onReady(info => {
 
 async function generateEmail() {
   // Define flags
-  const frFlag = document.getElementById("fr_flag");
-  const ukFlag = document.getElementById("uk_flag");
+  const flags = document.getElementById("flags");
   try {
 
     // Show the placeholder video
@@ -125,8 +232,7 @@ async function generateEmail() {
     buttonClick.disabled = true;
 
     // Disable flags
-    frFlag.classList.add('disabledFlags');
-    ukFlag.classList.add('disabledFlags');
+    flags.classList.add('disabledFlags');
 
     // Get the current subject and check if it starts with 'RE: '
     const currentSubject = await new Promise((resolve, reject) => {
@@ -327,8 +433,7 @@ async function generateEmail() {
     updateButtonState();
 
     // Unable flags
-    frFlag.classList.remove('disabledFlags');
-    ukFlag.classList.remove('disabledFlags');
+    flags.classList.remove('disabledFlags');
   }
 }
 
