@@ -1,6 +1,7 @@
 # BaridAI - Mail Generator
 
 **BaridAI - Your Intelligent Email Assistant**
+
 **BaridAI** is a powerful and intelligent *Outlook add-in* designed to revolutionize email composition and management. Leveraging cutting-edge AI technology, **BaridAI** assists users in *drafting professional emails* effortlessly, making it an invaluable tool for anyone looking to enhance their productivity.
 
 
