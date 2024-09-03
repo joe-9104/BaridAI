@@ -20,4 +20,5 @@
 
 
 ***Installation & Usage***
+
 You can install **BaridAI** through the Office Store. It will be automatically deployed in your Outlook environment.
