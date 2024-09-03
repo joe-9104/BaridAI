@@ -8,7 +8,7 @@
 ***Features***
 - *Effortless Email Composition*: **BaridAI** uses advanced AI models to generate well-structured and polished email content based on user input. Simply provide key points, and **BaridAI** crafts a professional email draft in seconds.
 
-- *Multilingual Support*: Whether you're composing an email in English, French, Arabic, Spanish or Portuguese, **BaridAI** adapts seamlessly, supporting multiple languages and ensuring your message is conveyed accurately and effectively.
+- *Multilingual Support*: Whether you're composing an email in English, French, Arabic, Spanish, Portuguese or German, **BaridAI** adapts seamlessly, supporting multiple languages and ensuring your message is conveyed accurately and effectively.
 
 - *Contextual Awareness*: **BaridAI** recognizes when you are replying to an email and adjusts its behavior accordingly, ensuring that your responses are clear, relevant, and professional.
 
