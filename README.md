@@ -19,6 +19,16 @@
 - *AI Models*: The project uses Google's Gemini 1.5 Flash model for generating both the body and subject of emails.
 
 
+***Compatibility***
+
+**BaridAI** is compatible with the following versions of Outlook:
+- Outlook *2013* or later on *Windows* and *Mac*
+- Outlook *2016* or later on *Windows* and *Mac*
+- Outlook *2019* or later on *Windows* and *Mac*
+- Outlook on the *web*
+- Outlook on Windows and Mac (*Microsoft 365*)
+
+
 ***Installation & Usage***
 
 You can install **BaridAI** through the Office Store. It will be automatically deployed in your Outlook environment.
